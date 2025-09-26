@@ -1,0 +1,5 @@
+.base(style="width:100%;height:100%")
+  plug(name="layout")
+  style(type="text/css"): :stylus
+    *[plug=layout] { fill: currentColor }
+  script(type="@plotdb/block"): include:lsc index.ls
