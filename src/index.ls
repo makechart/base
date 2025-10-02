@@ -83,12 +83,14 @@ module.exports =
           @root.setAttribute \class, (
             Array.from(@root.classList)
               .filter -> !/^xfl/.exec(it)
-              .join(' ') + (if @cfg.font.family => (' ' + @cfg.font.family.className) else '')
+              .filter -> it
+              .join(' ') + (if (@cfg.font.family or {}).className => (' ' + @cfg.font.family.className) else '')
           )
           @svg.setAttribute \class, (
             Array.from(@svg.classList)
               .filter -> !/^xfl/.exec(it)
-              .join(' ') + (if @cfg.font.family => (' ' + @cfg.font.family.className) else '')
+              .filter -> it
+              .join(' ') + (if (@cfg.font.family or {}).className => (' ' + @cfg.font.family.className) else '')
           )
         if original-resize => original-resize.apply @
       @chart = c = new chart(opt <<< data)
