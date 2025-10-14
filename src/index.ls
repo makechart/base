@@ -20,6 +20,7 @@ module.exports =
       {name: "d3-path", version: "2", path: "dist/d3-path.min.js"}
       {name: "d3-shape", version: "2", path: "dist/d3-shape.min.js"}
       {name: "d3-interpolate", version: "3", async: false, path: "dist/d3-interpolate.min.js"}
+      {name: "d3-scale", version: "2.2.0", path: "dist/d3-scale.min.js"}
       {name: "d3-scale-chromatic", version: "1", path: "dist/d3-scale-chromatic.min.js"}
       {name: "d3-ease", version: "2", path: "dist/d3-ease.min.js"}
       {name: "d3-quadtree", version: "2", path: "dist/d3-quadtree.min.js"}
