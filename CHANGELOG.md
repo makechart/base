@@ -1,5 +1,11 @@
 # Change Logs
 
+## v0.1.0 (upcoming)
+
+ - upgrade dependant d3 version to 7.9.0
+ - call `setRaw` if `raw` and `binding` is available in block data
+
+
 ## v0.0.2
 
  - check css class before adding it to SVG to prevent `undefined` as a class

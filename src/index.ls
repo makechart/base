@@ -9,28 +9,7 @@ module.exports =
   pkg:
     name: 'base', version: '0.0.1'
     dependencies: [
-      {name: "d3", version: "4", path: "build/d3.min.js", async: false}
-      {name: "d3-selection", version: "2", path: "dist/d3-selection.min.js", async: false}
-      {name: "d3-random", version: "2", path: "dist/d3-random.min.js"}
-      {name: "d3-dispatch", version: "2", path: "dist/d3-dispatch.min.js", async: false}
-      {name: "d3-transition", version: "3", path: "dist/d3-transition.min.js"}
-      {name: "d3-format", version: "2", path: "dist/d3-format.min.js"}
-      {name: "d3-array", version: "2", async: false, path: "dist/d3-array.min.js"}
-      {name: "d3-color", version: "2", path: "dist/d3-color.min.js"}
-      {name: "d3-path", version: "2", path: "dist/d3-path.min.js"}
-      {name: "d3-shape", version: "2", path: "dist/d3-shape.min.js"}
-      {name: "d3-interpolate", version: "3", async: false, path: "dist/d3-interpolate.min.js"}
-      {name: "d3-scale", version: "2.2.0", path: "dist/d3-scale.min.js"}
-      {name: "d3-scale-chromatic", version: "1", path: "dist/d3-scale-chromatic.min.js"}
-      {name: "d3-ease", version: "2", path: "dist/d3-ease.min.js"}
-      {name: "d3-quadtree", version: "2", path: "dist/d3-quadtree.min.js"}
-      {name: "d3-timer", version: "2", path: "dist/d3-timer.min.js"}
-      {name: "d3-force", version: "2", async: false, path: "dist/d3-force.min.js"}
-      {name: "d3-hierarchy", version: "2", path: "dist/d3-hierarchy.min.js"}
-      {name: "d3-force-boundary", version: "0.0.1", path: "dist/d3-force-boundary.min.js"}
-      {name: "d3-drag", version: "2", path: "dist/d3-drag.min.js"}
-      {name: "d3-brush", version: "2", path: "dist/d3-brush.min.js"}
-      {name: "d3-axis", version: "2", path: "dist/d3-axis.min.js"}
+      {name: "d3", version: "7.9.0", path: "dist/d3.min.js", async: false}
       {name: "@loadingio/debounce.js", version: "main", path: "index.min.js"}
       {name: "wrap-svg-text", version: "main", path: "index.min.js", async: false}
       {name: "@plotdb/layout", version: "main", path: "index.min.js", async: false}
@@ -95,7 +74,11 @@ module.exports =
           )
         if original-resize => original-resize.apply @
       @chart = c = new chart(opt <<< data)
-      c.init!then -> c
+      c.init!
+        .then ->
+          if !(data.raw and data.binding) => return
+          return c.set-raw data.raw, data.binding
+        .then -> c
     @
 
   interface: -> @chart
