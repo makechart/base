@@ -1,6 +1,6 @@
 # Change Logs
 
-## v0.1.0 (upcoming)
+## v0.1.0
 
  - upgrade dependant d3 version to 7.9.0
  - call `setRaw` if `raw` and `binding` is available in block data
