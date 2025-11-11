@@ -31,7 +31,7 @@ module.exports =
         "x axis": "X軸"
         name: "名稱"
 
-  init: ({root, context, pubsub, data, manager}) ->
+  init: ({root, context, pubsub, data = {}, manager}) ->
     {d3,chart} = context
     pubsub.on \init, (opt = {}) ~>
       opt = {
