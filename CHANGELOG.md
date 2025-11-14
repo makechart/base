@@ -1,5 +1,10 @@
 # Change Logs
 
+## v0.1.1
+
+ - add default value to `data` as an object
+
+
 ## v0.1.0
 
  - upgrade dependant d3 version to 7.9.0
