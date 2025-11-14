@@ -1,6 +1,6 @@
 # Change Logs
 
-## v0.1.1 (upcoming)
+## v0.1.1
 
  - add default value to `data` as an object
 
