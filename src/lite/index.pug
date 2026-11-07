@@ -1,0 +1,8 @@
+//- 不帶 d3 的 base. 與 index.pug 共用 index.ls, 只差在先設 `lite = true` 換掉 dependencies
+.base(style="width:100%;height:100%")
+  plug(name="layout")
+  style(type="text/css"): :stylus
+    *[plug=layout] { fill: currentColor }
+  script(type="@plotdb/block")
+    include:lsc lite.ls
+    include:lsc ../index.ls

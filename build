@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 rm -rf dist
-mkdir -p dist
+mkdir -p dist/d3 dist/lite
+# index.html 目前 = d3/index.html. 之後 breaking change 會讓 index.html = lite/index.html, 最後拿掉 d3/
 echo "build src/index.pug -> dist/index.html ..."
 npx srcbuild-pug src/index.pug -o dist/index.html
+echo "build src/d3/index.pug -> dist/d3/index.html ..."
+npx srcbuild-pug src/d3/index.pug -o dist/d3/index.html
+echo "build src/lite/index.pug -> dist/lite/index.html ..."
+npx srcbuild-pug src/lite/index.pug -o dist/lite/index.html
 
 echo "done."
