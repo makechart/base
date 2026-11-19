@@ -1,5 +1,13 @@
 # Change Logs
 
+## v0.2.1
+
+ - fix bug: the `@plotdb/konfig` font widget was never loaded. `manager.from` takes an attach option
+   as its 2nd argument, and the widget reads `data.dataSource`; passing `{}` made it throw on
+   `undefined.dataSource`, which base swallowed into the "font widget is required" warning.
+   pass `{data: {}}` instead. fonts now apply wherever base is used
+
+
 ## v0.2.0
 
  - add `d3/index.html` and `lite/index.html`. `index.html` is unchanged and still equals
