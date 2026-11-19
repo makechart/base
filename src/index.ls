@@ -1,5 +1,5 @@
 fontlib = proxise.once ({manager}) ->
-  manager.from {name: \@plotdb/konfig, version: \main, path: 'font/index.html'}, {}
+  manager.from {name: \@plotdb/konfig, version: \main, path: 'font/index.html'}, {data: {}}
     .then (o) -> fontlib.object = (d) -> o.interface.object(d)
     .catch ->
       console.warn """
