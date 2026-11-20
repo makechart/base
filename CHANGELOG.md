@@ -1,5 +1,17 @@
 # Change Logs
 
+## v0.2.2
+
+ - fix bug: setting `font.family` threw `n.sync is not a function` ( unhandled rejection ) since 0.2.1
+   loads the konfig font widget. the widget resolves `{}` when the font can't be loaded from xlfont or
+   isn't an xlfont font ( e.g. a system font ). base now only calls `sync` when it exists, and warns
+   when loading the font fails
+ - fix bug: the `xfl-*` class was read from `cfg.font.family`, which the konfig font widget stores as
+   `{name, style, weight}` without `className`, so a loaded xlfont was never applied. the class now
+   comes from the resolved font object ( a `cfg.font.family` that already has `className` still works ).
+   a string `font.family` is passed to the widget as `{name}`
+
+
 ## v0.2.1
 
  - fix bug: the `@plotdb/konfig` font widget was never loaded. `manager.from` takes an attach option

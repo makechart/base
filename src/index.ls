@@ -77,21 +77,28 @@ module.exports =
             if @layout =>
               @layout.root!querySelector('[data-type=layout]').style.fontSize = @cfg.font.size
             @svg.style.fontSize = @cfg.font.size
-          #if @cfg.font.family => @cfg.font.family.sync @svg.textContent
-          if @cfg.font.family and fontlib.object =>
-            fontlib.object(@cfg.font.family).then ~> it.sync @svg.textContent
-          @root.setAttribute \class, (
-            Array.from(@root.classList)
-              .filter -> !/^xfl/.exec(it)
-              .filter -> it
-              .join(' ') + (if (@cfg.font.family or {}).className => (' ' + @cfg.font.family.className) else '')
-          )
-          @svg.setAttribute \class, (
-            Array.from(@svg.classList)
-              .filter -> !/^xfl/.exec(it)
-              .filter -> it
-              .join(' ') + (if (@cfg.font.family or {}).className => (' ' + @cfg.font.family.className) else '')
-          )
+          # xlfont 的 class ( xfl-* ) 掛在 root 與 svg 上, 字型才會套用
+          set-class = (cls) ~>
+            [@root, @svg].map (n) ->
+              n.setAttribute \class, (
+                Array.from(n.classList).filter(-> it and !/^xfl/.exec(it)).join(' ') + (if cls => " #cls" else '')
+              )
+          family = @cfg.font.family
+          name-of = -> if !it => '' else if typeof(it) == \string => it else (it.name or '')
+          # 舊的設定可能直接存 xlfont 物件 ( 有 className ). 否則先保留目前的 class, 等載入完再換, 免得每次 resize 都閃一下
+          if !family or family.className => set-class (family or {}).className
+          if family and fontlib.object =>
+            # konfig 的字型元件要帶 name 的物件, 字串要包起來
+            fontlib.object(if typeof(family) == \string => {name: family} else family)
+              .then (f) ~>
+                # 等待中又換了字型就不套
+                if name-of((@cfg.font or {}).family) != name-of(family) => return
+                # 載入失敗或不是 xlfont 的字型 ( 如系統字型 ) 時是 {}, 沒有 sync / className - 就用瀏覽器的字型
+                if !(f and typeof(f.sync) == \function) => return set-class null
+                set-class f.className
+                f.sync @svg.textContent
+              .catch (e) ->
+                console.warn "[@makechart/base] failed to load font #{family.name or family}:", e
         if original-resize => original-resize.apply @
       @chart = c = new chart(opt <<< data)
       c.init!
